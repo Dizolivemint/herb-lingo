@@ -32,7 +32,7 @@ export default function Home() {
         <Layout navList={navList}>
           <Container>
             <Image
-              src="/images/baizhi900.png"
+              src="images/baizhi900x600.png"
               alt="Picture of the herb Baizhi"
               width={200}
               height={200}

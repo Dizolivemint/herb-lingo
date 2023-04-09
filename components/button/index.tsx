@@ -34,7 +34,7 @@ const StyledButton = styled.button<ButtonProps>`
     animation-duration: 4s;
     animation-iteration-count: infinite;
   }
-  margin-bottom: 1rem;
+  margin: 1rem;
 `
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {

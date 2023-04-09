@@ -13,12 +13,13 @@ const StyledContainer = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   height: ${props => props.size ? props.size[0] : 'auto'};
-  width: ${props => props.size ? props.size[1] : '100vw'};
+  width: ${props => props.size ? props.size[1] : '100%'};
   justify-content: center;
   align-items: ${props => props.alignItems ? props.alignItems : 'center'};
   text-align: ${props => props.alignItems ? props.alignItems : 'center'};
   padding: 0 0.5rem;
   font-size: calc(10px + 2vmin);
+  margin: 1rem;
 `;
 
 const Container: React.FC<ContainerProps> = (props: ContainerProps) => {
