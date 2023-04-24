@@ -70,6 +70,10 @@ export default function Account({ session }: { session: Session }) {
     }
   }
 
+  if (!user || loading) {
+    return <div>Loading...</div>; // Or return an empty element: return <></>;
+  }
+
   return (
     <div className="form-widget">
       <div>
