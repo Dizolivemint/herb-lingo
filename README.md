@@ -59,4 +59,4 @@ We welcome contributions from the community! To contribute to NextLMS, follow th
 
 ## License
 
-NextLMS is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License](https://creativecommons.org/licenses/by-nc-nd/4.0/). This license prohibits the selling of the software without explicit permission from the owner. See `LICENSE` for more information.
+NextLMS is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License](https://creativecommons.org/licenses/by-nc-nd/4.0/). This license prohibits the selling of the software without explicit permission from the owner. See [`LICENSE`](LICENSE.MD) for more information.
