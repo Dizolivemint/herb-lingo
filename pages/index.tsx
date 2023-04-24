@@ -8,14 +8,13 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const session = useSession()
-  const navList = [
-    { name: "About", href: "/about" },
-  ]
+  const navList = []
   if (!session) {
     navList.push({ name: "Login", href: "/login" })
   } else {
     navList.push({ name: "Practice", href: "/practice" })
   }
+  navList.push({ name: "About", href: "/about" })
   return (
     <>
       <Head>
