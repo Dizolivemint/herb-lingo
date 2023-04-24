@@ -22,6 +22,21 @@ To install NextLMS, follow these steps:
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
 
+## Installing and Updating Supabase
+
+To install the Supabase client library for JavaScript in your project, use the following command:
+`npm install supabase`
+
+To update the Supabase schema and generate TypeScript types, you can use the `supabase` command-line interface (CLI). Here's the command to generate TypeScript types based on your Supabase schema:
+`npx supabase gen types typescript --project-id "your-project-id" --schema public > lib/database.types.ts`
+
+Replace "your-project-id" with the ID of your Supabase project. You can find this ID in the URL of your Supabase dashboard.
+
+This command generates TypeScript types based on your Supabase schema and saves them to a file named `database.types.ts` in the `lib` directory of your project. Note that you may need to modify the generated TypeScript types to match your specific needs, as the generated types may not always be completely accurate or complete.
+
+Make sure that your Supabase database is set up correctly and that you have the necessary permissions to access the schema before running this command.
+
+
 ## Usage
 
 To use NextLMS, follow these steps:
@@ -32,7 +47,7 @@ To use NextLMS, follow these steps:
 4. Choose your gamification options
 5. Set your spaced repetition algorithm
 6. Share the quiz with your students
-
+    
 ## Contributing
 
 We welcome contributions from the community! To contribute to NextLMS, follow these steps:
