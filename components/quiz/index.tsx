@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Question } from '@/types/question';
+import { Database } from '@/lib/database.types';
 import Container from '@/components/container';
 import Layout from '@/components/layout';
 
+type Question = Database['public']['Tables']['questions']['Row'];
 type Props = {
   questions: Question[];
 };
@@ -14,9 +15,9 @@ const Quiz: React.FC<Props> = ({ questions }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleAnswerSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAnswerSelected = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSelectedAnswer(e.target.value);
-  };
+  };  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,18 +43,7 @@ const Quiz: React.FC<Props> = ({ questions }) => {
   };
 
   const checkAnswer = (question: Question, selectedAnswer: string): boolean => {
-    switch (question.type) {
-      case 'multiple_choice':
-        return selectedAnswer === question.correctAnswer;
-      case 'true_false':
-        return selectedAnswer === question.correctAnswer;
-      case 'short_answer':
-        return selectedAnswer.toLowerCase() === question.correctAnswer.toLowerCase();
-      case 'essay':
-        return true; // TODO: Implement grading
-      default:
-        return false;
-    }
+    return selectedAnswer === question.correct_answer;
   };
 
   if (!questions || questions.length === 0) {
@@ -83,10 +73,10 @@ const Quiz: React.FC<Props> = ({ questions }) => {
       <Container>
         <h1>Quiz</h1>
         <h2>{currentQuestion.text}</h2>
-        {currentQuestion.type === 'multiple_choice' && (
+        {currentQuestion.question_layout === 'multiple-choice' && (
           <form onSubmit={handleSubmit}>
-            {currentQuestion.options.map((option) => (
-              <div key={option}>
+             {JSON.parse(currentQuestion.options as string ?? '[]').map((option: string, index: number) => (
+              <div key={index}>
                 <label>
                   <input
                     type="radio"
@@ -104,38 +94,7 @@ const Quiz: React.FC<Props> = ({ questions }) => {
             </button>
           </form>
         )}
-        {currentQuestion.type === 'true_false' && (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  name="answer"
-                  value="True"
-                  checked={selectedAnswer === 'True'}
-                  onChange={handleAnswerSelected}
-                />
-                True
-              </label>
-            </div>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  name="answer"
-                  value="False"
-                  checked={selectedAnswer === 'False'}
-                  onChange={handleAnswerSelected}
-                />
-                False
-              </label>
-            </div>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </form>
-        )}
-        {currentQuestion.type === 'short_answer' && (
+        {currentQuestion.question_layout === 'fill-in-the-blank' && (
           <form onSubmit={handleSubmit}>
             <div>
               <label>
@@ -152,7 +111,7 @@ const Quiz: React.FC<Props> = ({ questions }) => {
             </button>
           </form>
         )}
-        {currentQuestion.type === 'essay' && (
+        {currentQuestion.question_layout === 'essay' && (
           <form onSubmit={handleSubmit}>
             <div>
               <label>
