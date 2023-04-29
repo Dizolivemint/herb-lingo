@@ -13,6 +13,7 @@ export default function Home() {
     navList.push({ name: "Login", href: "/login" })
   } else {
     navList.push({ name: "Practice", href: "/practice" })
+    navList.push({ name: "Quiz", href: "/quiz" })
   }
   navList.push({ name: "About", href: "/about" })
   return (

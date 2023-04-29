@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ChatGPTClient, ChatGPTRequest } from '@/lib/chatGPTClient';
+import { ChatGPTClient } from '@/lib/chatGPTClient';
 import { PostgresError } from '@/lib/postgres.types';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,11 +9,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const chatGPTRequest: ChatGPTRequest = req.body;
+  const chatGPTRequest: string = req.body;
 
   try {
     const client = new ChatGPTClient();
-    const chatGPTResponse = await client.generateQuestionsAndAnswers(chatGPTRequest);
+    const chatGPTResponse = await client.generateQuizQuestions(chatGPTRequest);
+    // const chatGPTResponse = chatGPTRequest
     res.status(200).json(chatGPTResponse);
   } catch (error) {
     const e = error as PostgresError;

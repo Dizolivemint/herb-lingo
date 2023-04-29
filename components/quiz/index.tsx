@@ -3,13 +3,16 @@ import { useRouter } from 'next/router';
 import { Database } from '@/lib/database.types';
 import Container from '@/components/container';
 import Layout from '@/components/layout';
+import _ from 'lodash';
+import Button from '../button';
 
 type Question = Database['public']['Tables']['questions']['Row'];
 type Props = {
   questions: Question[];
+  layout: string;
 };
 
-const Quiz: React.FC<Props> = ({ questions }) => {
+const Quiz: React.FC<Props> = ({ questions, layout }) => {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -67,15 +70,20 @@ const Quiz: React.FC<Props> = ({ questions }) => {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
+  
+  const distractors = currentQuestion.distractors || []; // catch null distractors
+  const options = _.shuffle([...distractors, currentQuestion.correct_answer]);
 
+  const questionLayout = layout;
+  
   return (
     <Layout>
       <Container>
         <h1>Quiz</h1>
         <h2>{currentQuestion.text}</h2>
-        {currentQuestion.question_layout === 'multiple-choice' && (
+        {questionLayout === 'multiple-choice' && (
           <form onSubmit={handleSubmit}>
-             {JSON.parse(currentQuestion.options as string ?? '[]').map((option: string, index: number) => (
+            {options.map((option: string, index: number) => (
               <div key={index}>
                 <label>
                   <input
@@ -89,12 +97,12 @@ const Quiz: React.FC<Props> = ({ questions }) => {
                 </label>
               </div>
             ))}
-            <button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
               Submit
-            </button>
+            </Button>
           </form>
         )}
-        {currentQuestion.question_layout === 'fill-in-the-blank' && (
+        {questionLayout === 'fill-in-the-blank' && (
           <form onSubmit={handleSubmit}>
             <div>
               <label>
@@ -111,7 +119,7 @@ const Quiz: React.FC<Props> = ({ questions }) => {
             </button>
           </form>
         )}
-        {currentQuestion.question_layout === 'essay' && (
+        {questionLayout === 'essay' && (
           <form onSubmit={handleSubmit}>
             <div>
               <label>

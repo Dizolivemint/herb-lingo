@@ -9,29 +9,63 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      outcomes: {
+      competencies: {
         Row: {
-          data: Json | null
+          compentency: string | null
           id: string
           inserted_at: string
-          outcome: string | null
-          subject: string | null
           updated_at: string
         }
         Insert: {
-          data?: Json | null
+          compentency?: string | null
           id?: string
           inserted_at?: string
-          outcome?: string | null
-          subject?: string | null
           updated_at?: string
         }
         Update: {
-          data?: Json | null
+          compentency?: string | null
           id?: string
           inserted_at?: string
-          outcome?: string | null
-          subject?: string | null
+          updated_at?: string
+        }
+      }
+      outcomes: {
+        Row: {
+          id: string
+          inserted_at: string
+          outcome: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          inserted_at?: string
+          outcome: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          inserted_at?: string
+          outcome?: string
+          updated_at?: string
+        }
+      }
+      outcomes_competencies: {
+        Row: {
+          competency_id: string
+          inserted_at: string
+          outcome_id: string
+          updated_at: string
+        }
+        Insert: {
+          competency_id: string
+          inserted_at?: string
+          outcome_id: string
+          updated_at?: string
+        }
+        Update: {
+          competency_id?: string
+          inserted_at?: string
+          outcome_id?: string
           updated_at?: string
         }
       }
@@ -56,10 +90,9 @@ export interface Database {
         Row: {
           correct_answer: string
           created_at: string
+          distractors: string[] | null
           id: string
           image_url: string | null
-          options: Json
-          question_layout: Database["public"]["Enums"]["question_layout"] | null
           sound_url: string | null
           text: string
           updated_at: string
@@ -67,12 +100,9 @@ export interface Database {
         Insert: {
           correct_answer: string
           created_at?: string
+          distractors?: string[] | null
           id: string
           image_url?: string | null
-          options: Json
-          question_layout?:
-            | Database["public"]["Enums"]["question_layout"]
-            | null
           sound_url?: string | null
           text: string
           updated_at?: string
@@ -80,12 +110,9 @@ export interface Database {
         Update: {
           correct_answer?: string
           created_at?: string
+          distractors?: string[] | null
           id?: string
           image_url?: string | null
-          options?: Json
-          question_layout?:
-            | Database["public"]["Enums"]["question_layout"]
-            | null
           sound_url?: string | null
           text?: string
           updated_at?: string
@@ -121,25 +148,74 @@ export interface Database {
         Row: {
           created_at: string
           id: string
+          outcome_ids: string[] | null
+          published: boolean | null
           question_id: string
           question_type: string
           quiz_id: string
           updated_at: string
+          user_id: string[] | null
         }
         Insert: {
           created_at?: string
           id: string
+          outcome_ids?: string[] | null
+          published?: boolean | null
           question_id: string
           question_type: string
           quiz_id: string
           updated_at?: string
+          user_id?: string[] | null
         }
         Update: {
           created_at?: string
           id?: string
+          outcome_ids?: string[] | null
+          published?: boolean | null
           question_id?: string
           question_type?: string
           quiz_id?: string
+          updated_at?: string
+          user_id?: string[] | null
+        }
+      }
+      subjects: {
+        Row: {
+          id: string
+          inserted_at: string
+          subject: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          inserted_at?: string
+          subject?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          inserted_at?: string
+          subject?: string | null
+          updated_at?: string
+        }
+      }
+      subjects_competencies: {
+        Row: {
+          competency_id: string
+          inserted_at: string
+          subject_id: string
+          updated_at: string
+        }
+        Insert: {
+          competency_id: string
+          inserted_at?: string
+          subject_id: string
+          updated_at?: string
+        }
+        Update: {
+          competency_id?: string
+          inserted_at?: string
+          subject_id?: string
           updated_at?: string
         }
       }

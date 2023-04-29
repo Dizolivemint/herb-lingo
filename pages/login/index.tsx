@@ -7,7 +7,7 @@ export default function Login() {
   const session = useSession()
   const supabase = useSupabaseClient()
   const [loading, setLoading] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>('somabhi@gmail.com');
+  const [email, setEmail] = useState<string>('');
   const [status, setStatus] = useState<string>('');
   const router = useRouter();
 
