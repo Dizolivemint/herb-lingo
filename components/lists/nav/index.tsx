@@ -5,6 +5,7 @@ import Button from '@/components/button';
 const List = styled.ul`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   list-style: none;
@@ -12,7 +13,6 @@ const List = styled.ul`
   margin: 0;
   li {
     margin: 0 1rem;
-    
   }
 `;
 
